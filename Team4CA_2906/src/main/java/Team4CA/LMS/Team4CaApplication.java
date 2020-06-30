@@ -52,6 +52,16 @@ public class Team4CaApplication {
 			//create Employee object
 			Employee e1 = new Employee ("Summer",Role.ADMIN,Gender.FEMALE,dob,s1,end1);
 			erepo.save(e1);
+			
+			Employee e2 = new Employee ("KyawThiha",Role.ADMIN,Gender.MALE,dob,s1,end1);
+			erepo.save(e2);
+			
+			Employee e3 = new Employee ("Saw",Role.MANAGER,Gender.MALE,dob,s1,end1);
+			erepo.save(e3);
+			
+			Employee e4 = new Employee ("Lance",Role.MANAGER,Gender.MALE,dob,s1,end1);
+			erepo.save(e4);
+			
 			String d3 = "2019-05-11";
 			Date leavestart1 = sdf.parse(d3);
 			String d4 = "2019-05-15";
@@ -70,6 +80,12 @@ public class Team4CaApplication {
 			
 			Overtime o1 = new Overtime(LocalDateTime.of(2020,4,10,18,0,0),LocalDateTime.of(2020,4,10,21,0,0),OvertimeStatus.APPLIED,3,"Urgent report",e1);
 			orepo.save(o1);
+			Overtime o2 = new Overtime(LocalDateTime.of(2020,4,10,18,0,0),LocalDateTime.of(2020,4,10,21,0,0),OvertimeStatus.APPLIED,3,"Urgent report",e2);
+			orepo.save(o2);
+			Overtime o3 = new Overtime(LocalDateTime.of(2020,4,10,18,0,0),LocalDateTime.of(2020,4,10,21,0,0),OvertimeStatus.APPLIED,3,"Urgent report",e3);
+			orepo.save(o3);
+			Overtime o4 = new Overtime(LocalDateTime.of(2020,4,10,18,0,0),LocalDateTime.of(2020,4,10,21,0,0),OvertimeStatus.APPLIED,3,"Urgent report",e4);
+			orepo.save(o4);
 		};
 	}
 	

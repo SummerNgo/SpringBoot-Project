@@ -37,7 +37,7 @@
 				<li class="nav-item"><a class="nav-link" th:href="@{leavelist}">View
 						Leave Application for Approval</a></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{overtimelist}">Approve Compensation Claim</a></li>
+					href="#{}">Approve Compensation Claim</a></li>
 
 			</ul>
 		</nav>
@@ -45,42 +45,12 @@
 		<div class="container-fluid">
 
 			<h3>Claim</h3>
+			<!-- Flag of success or fails -->
 			<span id="approveflag" th:text="${approveflag}" hidden="text"></span>
+			<span id="rejectflag" th:text="${rejectflag}" hidden="text"></span>
 
-			<div class="d-flex flex-row-reverse">
-				<div class="p-2">
-					<a th:href="@{/employee/add}" class="btn btn-primary btn-sm"> <i
-						class="fas fa-plus-circle"></i> Create
-					</a>
-				</div>
-			</div>
-
-			<table class="w3-container table">
-				<thead style="background-color: #ADDFFF;">
-					<tr>
-						<th th:text="EmployeeName">EmployeeName</th>
-						<th th:text="OverTimeCheckIn">OverTimeCheckIn</th>
-						<th th:text="OverTimeCheckOut">OverTimeCheckOut</th>
-						<th th:text="OverTimeStatus">OverTimeStatus</th>
-						<th th:text="OverTimeDuration">OverTimeDuration</th>
-						<th th:text="Description">Description</th>
-						<th th:text="Action">Action</th>
-					</tr>
-				</thead>
-				<tr>
-					<td>kth</td>
-					<td>01-02-2020</td>
-					<td>02-02-2020</td>
-					<td>Applied</td>
-					<td>1</td>
-					<td>illness</td>
-					<td><a href="" th:href="@{/overtime/approved}">Approved</a> <a
-						href="#" style="color: red">Rejected</a></td>
-				</tr>
-			</table>
-
-			<!-- 
-				<table class="w3-container table"
+			
+			<table class="w3-container table"
 				th:if="${not #lists.isEmpty(overtimeClaimList)}">
 
 
@@ -93,20 +63,22 @@
 						<th th:text="OverTimeDuration">OverTimeDuration</th>
 						<th th:text="Description">Description</th>
 						<th th:text="Action">Action</th>
+						<th th:text="Approved">Approved</th>
 					</tr>
 				</thead>
 
-				<tr th:each="e:${overtimeClaimList}">
-					<td th:text=*{employee.name}>EmployeeName</td>
-					<td th:text=*{start}>LeaveStartDate</td>
-					<td th:text=*{end}>LeaveEndDate</td>
-					<td th:text=*{overtimeStatus}>OverTimeStatus</td>
-					<td th:text=*{duration}>Duration</td>
-					<td th:text=*{description}>Description</td>
-					<td><a>Approved</a> <a>Rejected</a></td>
+				<tr th:each="o:${overtimeClaimList}">
+					<td th:text=${o.employee.name}>EmployeeName</td>
+					<td th:text=${o.start}>LeaveStartDate</td>
+					<td th:text=${o.end}>LeaveEndDate</td>
+					<td th:text=${o.overtimeStatus}>OverTimeStatus</td>
+					<td th:text=${o.duration}>Duration</td>
+					<td th:text=${o.description}>Description</td>
+					<td><a th:href="@{/overtimeApproved/}+${o.id}">Approved</a> 
+					<a th:href="@{/overtimeRejected/}+${o.id}" style="color: red;">Rejected</a></td>
 				</tr>
 			</table>
-			 -->
+
 		</div>
 
 	</div>
@@ -118,11 +90,9 @@
 
 			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header">
-					
-				</div>
+				<div class="modal-header"></div>
 				<div class="modal-body">
-					<p align="center">Approved Successfully !</p>
+					<p align="center" style="color: blue">Approved Successfully !</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-sm"
@@ -132,13 +102,13 @@
 
 		</div>
 	</div>
-	<div class="modal fade" id="approveFail" role="dialog">
+	<div class="modal fade" id="approvedFail" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<p style="color: red">Approved Fail!!!!</p>
+					<p style="color: red" align="center">Approved Fail!!!!</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-sm"
@@ -155,7 +125,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<p>Rejected Successfully !</p>
+					<p style="color: blue " align="center">Rejected Successfully !</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-sm"
@@ -172,7 +142,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-body">
-					<p style="color: red">Reject Fail!!!!</p>
+					<p style="color: red" align="center">Reject Fail!!!!</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-sm"

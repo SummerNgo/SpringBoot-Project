@@ -1,5 +1,7 @@
 package Team4CA.LMS.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,18 @@ public class OvertimeServiceImpl implements OvertimeService {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public List<Overtime> findAll() {
+		List<Overtime> overtimeList = overtimeRepo.findAll();
+		return overtimeList;
+	}
+
+	@Override
+	public List<Overtime> findOvertimeByOvertimeStatus(OvertimeStatus os) {
+		List<Overtime> overtimeList = overtimeRepo.findOvertimeByOvertimeStatus(os);
+		return overtimeList;
 	}
 	
 	
