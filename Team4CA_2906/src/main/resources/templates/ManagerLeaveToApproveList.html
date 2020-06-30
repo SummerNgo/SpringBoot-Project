@@ -52,8 +52,10 @@
 					</a>
 				</div>
 			</div>
-			<table class="w3-container table"
-				th:if="${not #lists.isEmpty(elist)}">
+			
+			
+			 <table class="w3-container table"
+				>
 
 
 				<thead style="background-color: #ADDFFF;">
@@ -63,15 +65,20 @@
 						<th th:text="LeaveEndDate">LeaveEndDate</th>
 						<th th:text="LeaveDuration">LeaveDuration</th>
 						<th th:text="Description">Description</th>
+						<th th:text="Action">Action</th>
 					</tr>
 				</thead>
-
-				<tr th:each="e:${leavelist}">
-					<td th:text=*{empName}>EmployeeName</td>
-					<td th:text=*{leaveStartDate}>LeaveStartDate</td>
-					<td th:text=*{duration}>LeaveEndDate</td>
-					<td th:text=*{description}>Description</td>
-				</tr>
+				
+				<tr th:each="leaveRequest:${pendingLeaveList}">
+					<td th:text="${leaveRequest.employee.name}">EmployeeName</td>
+					<td th:text="${leaveRequest.leaveStartDate}">LeaveStartDate</td>
+					<td th:text="${leaveRequest.leaveEndDate}">LeaveDuration</td>
+					<td th:text="${leaveRequest.duration}">LeaveEndDate</td>
+					<td th:text="${leaveRequest.description}">Description</td>
+					<td><a th:href="@{/leavelist}">Approved</a> 
+					<a th:href="@{/manager}" style="color: red">Rejected</a></td>
+					
+				</tr> 
 			</table>
 		</div>
 
