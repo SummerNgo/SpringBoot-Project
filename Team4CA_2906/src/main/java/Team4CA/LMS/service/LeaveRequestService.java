@@ -8,4 +8,7 @@ import Team4CA.LMS.domain.LeaveStatus;
 
 public interface LeaveRequestService {
 	public ArrayList<LeaveRequest> findByLeaveStatus(LeaveStatus ls);
+	public boolean approvedLeaveByManager(Integer id);
+	public boolean rejectLeaveByManager(Integer id);
+	
 }

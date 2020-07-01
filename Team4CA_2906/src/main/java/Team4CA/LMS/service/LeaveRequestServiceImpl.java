@@ -22,4 +22,24 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	
 	}
 
+	@Override
+	public boolean approvedLeaveByManager(Integer id) {
+		LeaveRequest leaveRequest = lrrepo.findById(id).get();
+		leaveRequest.setLeaveStatus(LeaveStatus.APPROVED);
+		if (lrrepo.save(leaveRequest) != null)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean rejectLeaveByManager(Integer id) {
+		LeaveRequest leaveRequest1 = lrrepo.findById(id).get();
+		leaveRequest1.setLeaveStatus(LeaveStatus.REJECTED);
+		if ( lrrepo.save(leaveRequest1) != null)
+			return true;
+		else
+			return false;
+	}
+
 }

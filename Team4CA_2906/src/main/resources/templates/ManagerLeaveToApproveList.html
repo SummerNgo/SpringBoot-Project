@@ -25,37 +25,33 @@
 	crossorigin="anonymous">
 
 
+<script th:src="@{../js/ManagerLeaveToApprove.js}"></script>
+
 </head>
 <body>
-
 	<div class="container">
-		
+
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" th:href="@{/manager}">Welcome</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/pendingLeavelist}">View
+						Leave Application for Approval</a></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{leavelist}">View Leave Application for Approval</a></li>
-				<li class="nav-item"><a class="nav-link"
-					th:href="@{overtimelist}">Approve Compensation Claim</a></li>
+					href="#{}">Approve Compensation Claim</a></li>
 
 			</ul>
 		</nav>
 
 		<div class="container-fluid">
-			<br>
-			<h4>Manage</h4>
 
-			<div class="d-flex flex-row-reverse">
-				<div class="p-2">
-					<a th:href="@{/employee/add}" class="btn btn-primary btn-sm"> <i
-						class="fas fa-plus-circle"></i> Create
-					</a>
-				</div>
-			</div>
+			<h3>Claim</h3>
+			<!-- Flag of success or fails -->
+			<span id="leaveApproveflag" th:text="${leaveApproveflag}" hidden="text"></span>
+			<span id="leaveRejectflag" th:text="${leaveRejectflag}" hidden="text"></span>
+
 			
-			
-			 <table class="w3-container table"
-				>
+			<table class="w3-container table"
+				th:if="${not #lists.isEmpty(pendingLeaveList)}">
 
 
 				<thead style="background-color: #ADDFFF;">
@@ -67,23 +63,92 @@
 						<th th:text="Description">Description</th>
 						<th th:text="Action">Action</th>
 					</tr>
-				</thead>
 				
+				</thead>
+
 				<tr th:each="leaveRequest:${pendingLeaveList}">
 					<td th:text="${leaveRequest.employee.name}">EmployeeName</td>
 					<td th:text="${leaveRequest.leaveStartDate}">LeaveStartDate</td>
-					<td th:text="${leaveRequest.leaveEndDate}">LeaveDuration</td>
-					<td th:text="${leaveRequest.duration}">LeaveEndDate</td>
+					<td th:text="${leaveRequest.leaveEndDate}">LeaveEndDate</td>
+					<td th:text="${leaveRequest.duration}">Duration</td>
 					<td th:text="${leaveRequest.description}">Description</td>
-					<td><a th:href="@{/leavelist}">Approved</a> 
-					<a th:href="@{/manager}" style="color: red">Rejected</a></td>
-					
-				</tr> 
+					<td><a th:href="@{/leaveApproved/}+${leaveRequest.id}">Approved</a> 
+					<a th:href="@{/leaveRejected/}+${leaveRequest.id}" style="color: red;">Rejected</a></td>
+				</tr>
 			</table>
-		</div>
 
+		</div>
 
 	</div>
 
+
+	<!-- Modal -->
+	<div class="modal fade" id="approvedSuccessful" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<p align="center" style="color: blue">Approved Successfully !</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="modal fade" id="approvedFail" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<p style="color: red" align="center">Approved Fail!!!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal fade" id="rejectSuccessful" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<p style="color: blue " align="center">Rejected Successfully !</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal fade" id="rejectFail" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<p style="color: red" align="center">Reject Fail!!!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </body>
 </html>

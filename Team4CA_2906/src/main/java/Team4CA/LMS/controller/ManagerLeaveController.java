@@ -24,20 +24,38 @@ public class ManagerLeaveController {
     @Autowired
     private LeaveRequestRepo lrrepo;
 	
-	@RequestMapping(value="/pendingleavelist")
+	@RequestMapping(value="/pendingLeavelist")
 	public String pendingLeaveList(Model model)
 	{
 		model.addAttribute("pendingLeaveList", lrs.findByLeaveStatus(LeaveStatus.APPLIED));
 		return "ManagerLeaveToApproveList";
 	}
 	
-	/*
-	 * @RequestMapping(value="/approve/{id}") public String approveLeaveList(Model
-	 * model, @PathVariable("id") Integer id) { model.addAttribute("leaveRequest",
-	 * lrrepo.findById(id).get());
-	 * 
-	 * return "ManagerLeaveToApproveList";
-	 */
+	@RequestMapping(value = "/leaveApproved/{id}") 
+	public String leaveApproved(@PathVariable("id")Integer id, Model model) {
+		
+		boolean b = lrs.approvedLeaveByManager(id);
+		
+		if(b == true) {
+			model.addAttribute("leaveApproveflag",1);
+		}else {
+			model.addAttribute("leaveApproveflag",2);
+		}
+			return "forward:/pendingLeavelist";
+	}
 	
+	@RequestMapping(value = "/leaveRejected/{id}") //{id}
+	public String leaveRejected(@PathVariable("id")Integer id, Model model) {
+		
+		boolean b = lrs.rejectLeaveByManager(id);
+		
+		if(b == true) {
+			model.addAttribute("leaveRejectflag",1);
+		}else {
+			model.addAttribute("leaveRejectflag",2);
+		}
+			
+			return "forward:/pendingLeavelist";
+	}
 
 }

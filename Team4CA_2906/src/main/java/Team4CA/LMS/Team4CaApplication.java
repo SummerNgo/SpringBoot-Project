@@ -70,11 +70,15 @@ public class Team4CaApplication {
 			//create LeaveType object
 			LeaveType lt1 = new LeaveType("Annual Leave",18,9,e1);
 			ltrepo.save(lt1);
-			
-			
+			LeaveType lt2 = new LeaveType("Medical Leave",60,40,e2);
+			ltrepo.save(lt2);
+		
 			//create LeaveRequest Object
 			LeaveRequest lr1 = new LeaveRequest(leavestart1,leaveend1,5,"Annual Leave"," ",LeaveStatus.APPLIED,e1,lt1);
 			lrrepo.save(lr1);
+			LeaveRequest lr2 = new LeaveRequest(leavestart1,leaveend1,5,"Medical Leave"," ",LeaveStatus.APPLIED,e2,lt2);
+			lrrepo.save(lr2);
+			
 			
 			//create OverTime Object
 			
